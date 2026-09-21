@@ -1,6 +1,6 @@
 # MWMixer
 
-Official PyTorch implementation of **Recovering Lost Details: Multi-Scale Frequency Compensation for Long-Term Time Series Forecasting** (CIKM 2026 submission cfp0285).
+Official PyTorch implementation of **Recovering Lost Details: Multi-Scale Frequency Compensation for Long-Term Time Series Forecasting**.
 
 MWMixer combines multi-scale temporal inputs with MODWT frequency-band decomposition, bidirectional frequency-band mixing, and dynamic scale-adaptive fusion. The repository currently supports the long-term forecasting experiments reported in the paper.
 
@@ -71,43 +71,7 @@ python run.py \
   --enc_in 7 --dec_in 7 --c_out 7
 ```
 
-The CLI defaults follow the common paper setup: Adam with learning rate `1e-4`, at most 30 epochs, patience 10, and three repeated runs. Dataset-specific hyperparameters selected during validation must be supplied explicitly. Use `python run.py --help` for the complete option list.
-
-To reproduce the ETTh1 benchmark command for a reported horizon:
-
-```bash
-bash scripts/run_long_term_etth1.sh       # prediction length 96
-bash scripts/run_long_term_etth1.sh 336   # prediction length 336
-```
-
-The checked-in reproduction script is restricted to `ETTh1`. Supported prediction lengths are 96, 192, 336, and 720. Other datasets can still be configured through the `run.py` command-line interface.
-
-Outputs are written to:
-
-- `checkpoints/`: best validation checkpoints
-- `results/`: metrics and predictions
-- `test_results/`: qualitative forecast plots
-- `result_long_term_forecast.txt`: aggregate test log
-
-These generated paths are ignored by Git.
-
-## Verification
-
-Run the lightweight checks without downloading a dataset:
-
-```bash
-python -m unittest discover -s tests -v
-python run.py --help
-```
-
-The test suite verifies that the public entry point imports and that MWMixer produces correctly shaped full-resolution and scale-wise forecasts on CPU.
-
-## Reproducibility notes
-
-- Random seeds are fixed to 2021 in `run.py`.
-- The paper searches model dimension, number of downsampling layers, MODWT level, BFBM depth, wavelet, dropout, and multi-scale loss coefficient. The checked-in defaults are a valid baseline configuration, not a claim that one setting is optimal for every dataset and horizon.
-- Reported paper numbers average three runs. Set `--itr 1` for a quick development run.
-- Training data and checkpoints are intentionally excluded from the repository.
+The CLI defaults follow the common setup: Adam with learning rate `1e-4`, at most 30 epochs, patience 10, and three repeated runs. Use `python run.py --help` for the complete option list.
 
 ## Citation
 
