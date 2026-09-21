@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+
+# Environments and editors
+.venv/
+venv/
+.idea/
+.vscode/
+
+# Local datasets and experiment artifacts
+dataset/
+data/
+checkpoints/
+results/
+test_results/
+m4_results/
+result_long_term_forecast.txt
+
+# Files intentionally kept out of the public repository for now
+CIKM2026-cfp0285.pdf
+paper_extract.txt
+scripts/run_long_term.sh
+
+# OS files
+.DS_Store
+Thumbs.db
