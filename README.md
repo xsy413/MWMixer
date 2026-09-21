@@ -4,18 +4,22 @@ Official PyTorch implementation of **Recovering Lost Details: Multi-Scale Freque
 
 MWMixer combines multi-scale temporal inputs with MODWT frequency-band decomposition, bidirectional frequency-band mixing, and dynamic scale-adaptive fusion. The repository currently supports the long-term forecasting experiments reported in the paper.
 
+The manuscript PDF and its extracted text are intentionally not included in this repository.
+
 ## Repository layout
 
 ```text
 MWMixer/
-├── data_provider/       # Dataset loaders and train/validation/test splits
-├── exp/                 # Training and evaluation loops
-├── layers/              # Embeddings, normalization, and MODWT implementation
-├── models/MWMixer.py    # MWMixer architecture
-├── scripts/             # Reproduction commands
-├── tests/               # Lightweight import and forward-pass tests
-├── run.py               # Main CLI entry point
-└── CIKM2026-cfp0285.pdf # Anonymous paper manuscript
+├── data_provider/          # Dataset loaders and train/validation/test splits
+├── exp/                    # Training and evaluation loops
+├── layers/                 # Embeddings, normalization, and MODWT implementation
+├── models/MWMixer.py       # MWMixer architecture
+├── scripts/                # Reproduction commands
+│   └── run_long_term_etth1.sh
+├── tests/                  # Lightweight import and forward-pass tests
+├── README.md               # Project documentation
+├── requirements.txt        # Python dependencies
+└── run.py                  # Main CLI entry point
 ```
 
 ## Installation
@@ -69,14 +73,14 @@ python run.py \
 
 The CLI defaults follow the common paper setup: Adam with learning rate `1e-4`, at most 30 epochs, patience 10, and three repeated runs. Dataset-specific hyperparameters selected during validation must be supplied explicitly. Use `python run.py --help` for the complete option list.
 
-To reproduce a benchmark command for any reported horizon:
+To reproduce the ETTh1 benchmark command for a reported horizon:
 
 ```bash
-bash scripts/run_long_term.sh ETTh1 96
-bash scripts/run_long_term.sh Weather 336
+bash scripts/run_long_term_etth1.sh       # prediction length 96
+bash scripts/run_long_term_etth1.sh 336   # prediction length 336
 ```
 
-Supported dataset names are `ETTh1`, `ETTh2`, `ETTm1`, `ETTm2`, `Weather`, `Electricity`, and `Exchange`. Supported horizons are 96, 192, 336, and 720.
+The checked-in reproduction script is restricted to `ETTh1`. Supported prediction lengths are 96, 192, 336, and 720. Other datasets can still be configured through the `run.py` command-line interface.
 
 Outputs are written to:
 
